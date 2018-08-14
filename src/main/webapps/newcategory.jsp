@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="/css/style.css">
   </head>
   <body>
-    <form>
+    <form method="post">
       <table>
         <tr>
           <td>Категория:</td>
@@ -26,12 +26,15 @@
         <tr>
           <th>Категория</th>
           <th>Количество продуктов</th>
+          <th>Количество продуктов</th>
         </tr>
         <c:if test="${not empty requestScope.catList}">
           <c:forEach var="cat" items="${requestScope.catList}" >
             <tr>
-              <td>${cat.name}</td>
-              <td>${cat.prod.size()}</td>
+              <td>${cat[0]}</td>
+              <td>${cat[1]}</td>
+              <td>${cat[2]}</td>
+              <td>${cat[3]}</td>
             </tr>
           </c:forEach>
         </c:if>

@@ -1,6 +1,7 @@
 package ru.timestop.servlets;
 
 import org.apache.log4j.Logger;
+import ru.timestop.objects.Prod;
 import ru.timestop.provider.ProviderFactory;
 
 import javax.servlet.ServletException;
@@ -42,7 +43,7 @@ public class StoreServlet extends HttpServlet {
         Double min_price = getPrice(req, "min_price", Double.valueOf(0.00f));
         Double max_price = getPrice(req, "max_price", Double.MAX_VALUE);
 
-        List<?> prods = ProviderFactory.getProdProvider().find(cat_name, prod_name, min_price, max_price);
+        List<Prod> prods = ProviderFactory.getProdProvider().find(cat_name, prod_name, min_price, max_price);
 
         req.setAttribute("category_name", req.getParameter("category_name"));
         req.setAttribute("product_name", req.getParameter("product_name"));

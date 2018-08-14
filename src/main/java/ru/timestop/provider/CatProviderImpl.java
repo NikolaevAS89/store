@@ -5,6 +5,8 @@ import ru.timestop.objects.Cat;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import java.util.List;
 
 /**
  * @author Tor
@@ -19,6 +21,12 @@ public class CatProviderImpl implements CatProvider {
 
     CatProviderImpl(EntityManager entityManager) {
         this.entityManager = entityManager;
+    }
+
+    @Override
+    public List<Object[]> find() {
+        Query query = entityManager.createNamedQuery("Cat.getAll");
+        return query.getResultList();
     }
 
     @Override
