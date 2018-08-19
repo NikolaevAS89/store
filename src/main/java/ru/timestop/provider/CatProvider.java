@@ -1,39 +1,39 @@
 package ru.timestop.provider;
 
-import ru.timestop.objects.Cat;
+import ru.timestop.objects.Category;
 
 import java.util.List;
 
 /**
  * @author Tor
  * @version 1.0.0
- * @see ru.timestop.objects.Cat
+ * @see Category
  * @since 13.08.2018
  */
 public interface CatProvider {
 
-    List<Object[]> find();
+    List<Category> find();
 
     /**
      * Add new category in table
      *
-     * @param newCat new Category of products
+     * @param newCategory new Category of products
      * @return id of new category
      */
-    int insertCat(Cat newCat);
+    int insertCat(Category newCategory);
 
     /**
      * Remove some old category with all product
      *
-     * @param oldCat old category
+     * @param oldCategory old category
      */
-    void deleteCat(Cat oldCat);
+    void deleteCat(Category oldCategory);
 
     /**
      * Update some category
      *
-     * @param newCat updated category
+     * @param newCategory updated category
      */
-    void updateCat(Cat newCat);
+    void updateCat(Category newCategory);
 
 }

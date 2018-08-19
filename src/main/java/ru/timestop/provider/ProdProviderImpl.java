@@ -29,7 +29,7 @@ public class ProdProviderImpl implements ProdProvider {
         if (CatName == null && ProdName == null && minPrice == null && maxPrice == null) {
             return Collections.EMPTY_LIST;
         }
-        TypedQuery<Prod> query = (TypedQuery<Prod>) entityManager.createNamedQuery(
+        TypedQuery<Prod> query = entityManager.createNamedQuery(
                 "Prod.findProducts", Prod.class);
         query.setParameter("cat_name", CatName + "%");
         query.setParameter("prod_name", ProdName + "%");

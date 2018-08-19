@@ -37,7 +37,7 @@
         <c:if test="${not empty requestScope.prodList}">
 	        <c:forEach var="prod" items="${requestScope.prodList}" >
 	        	<tr>
-	       			<td>${prod.cat.name}</td>
+	       			<td>${prod.category.name}</td>
 	       			<td>${prod.name}</td>
 	       			<td><fmt:formatNumber pattern="#######0.00" type="number" value="${prod.price}"/></td>
 	       		</tr>

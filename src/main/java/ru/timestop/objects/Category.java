@@ -10,23 +10,23 @@ import java.util.Set;
  * @author NikolaevAS
  */
 @Entity
-@Table(name = "Cat")
-@NamedQuery(name = "Cat.getAll", query = "select count(c) as prod_count, c._id as id, c._name as name from Cat as c group by c._id, c._name")
-public class Cat implements Serializable {
+@Table(name = "Category")
+@NamedQuery(name = "Cat.getAll", query = "select c from Category c")
+public class Category implements Serializable {
     private static final long serialVersionUID = -7884498378960092700L;
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int _id; //
-    @Column(name = "name")
+    @Column(name = "name", unique = true)
     private String _name; //
     @OneToMany(mappedBy = "_cat")
     private Set<Prod> prods;
 
-    public Cat() {
+    public Category() {
     }
 
-    public Cat(String name) {
+    public Category(String name) {
         setName(name);
     }
 
@@ -49,7 +49,7 @@ public class Cat implements Serializable {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder(100);
-        sb.append(Cat.class.getName());
+        sb.append(Category.class.getName());
         sb.append("{ 'id':'");
         sb.append(_id);
         sb.append("','name':'");

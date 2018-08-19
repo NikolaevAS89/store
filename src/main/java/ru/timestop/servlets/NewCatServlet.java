@@ -1,7 +1,8 @@
 package ru.timestop.servlets;
 
 import org.apache.log4j.Logger;
-import ru.timestop.objects.Cat;
+import ru.timestop.objects.Category;
+import ru.timestop.provider.CatProvider;
 import ru.timestop.provider.ProviderFactory;
 
 import javax.servlet.ServletException;
@@ -27,11 +28,27 @@ public class NewCatServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+        CatProvider provider = ProviderFactory.getCatProvider();
+        LOG.info("==================================================================");
+        List<Category> list = provider.find();
+        LOG.info("==================================================================");
+        req.setAttribute("catList", list);
+        this.getServletContext().getRequestDispatcher("/newcategory.jsp").forward(req, resp);
+    }
+
+    @Override
+    public void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
 
         String newCatName = req.getParameter("category_name");
-        Cat cat = new Cat();
+        Category cat = new Category();
         cat.setName(newCatName);
-        ProviderFactory.getCatProvider().insertCat(cat);
+        CatProvider provider = ProviderFactory.getCatProvider();
+        provider.insertCat(cat);
+        LOG.info("==================================================================");
+        List<Category> list = provider.find();
+        LOG.info("==================================================================");
+        req.setAttribute("catList", list);
         this.getServletContext().getRequestDispatcher("/newcategory.jsp").forward(req, resp);
     }
 }

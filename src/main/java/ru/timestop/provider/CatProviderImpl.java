@@ -1,11 +1,11 @@
 package ru.timestop.provider;
 
 import org.apache.log4j.Logger;
-import ru.timestop.objects.Cat;
+import ru.timestop.objects.Category;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
@@ -24,16 +24,16 @@ public class CatProviderImpl implements CatProvider {
     }
 
     @Override
-    public List<Object[]> find() {
-        Query query = entityManager.createNamedQuery("Cat.getAll");
+    public List<Category> find() {
+        TypedQuery<Category> query = entityManager.createNamedQuery("Cat.getAll", Category.class);
         return query.getResultList();
     }
 
     @Override
-    public int insertCat(Cat newCat) {
+    public int insertCat(Category newCategory) {
         try {
             entityManager.getTransaction().begin();
-            entityManager.persist(newCat);
+            entityManager.persist(newCategory);
             entityManager.flush();
             entityManager.getTransaction().commit();
         } catch (EntityExistsException e) {
@@ -47,14 +47,14 @@ public class CatProviderImpl implements CatProvider {
                 // NOTHING_TODO
             }
         }
-        return newCat.getId();
+        return newCategory.getId();
     }
 
     @Override
-    public void deleteCat(Cat oldCat) {
+    public void deleteCat(Category oldCategory) {
         try {
             entityManager.getTransaction().begin();
-            entityManager.remove(oldCat);
+            entityManager.remove(oldCategory);
             entityManager.flush();
             entityManager.getTransaction().commit();
         } catch (EntityExistsException e) {
@@ -71,10 +71,10 @@ public class CatProviderImpl implements CatProvider {
     }
 
     @Override
-    public void updateCat(Cat newCat) {
+    public void updateCat(Category newCategory) {
         try {
             entityManager.getTransaction().begin();
-            entityManager.merge(newCat);
+            entityManager.merge(newCategory);
             entityManager.flush();
             entityManager.getTransaction().commit();
         } catch (EntityExistsException e) {

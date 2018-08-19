@@ -23,7 +23,7 @@ import javax.persistence.Table;
 @NamedQueries({
 @NamedQuery(name = "Prod.getAll", query = "select p from Prod p"),
 @NamedQuery(name = "Prod.findProducts", query = "select p  "
-		                                      + "from Prod p inner join p._cat c "
+		                                      + "from Prod p inner join p._category c "
 		                                      + "where upper(p._name) like upper(:prod_name) "
 		                                      + "  and upper(c._name) like upper(:cat_name) "
 		                                      + "  and p._price between :min_price "
@@ -36,17 +36,17 @@ public class Prod implements Serializable{
 	@Column(name="id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int _id; //
-	@Column(name="name")
+	@Column(name="name", unique = true)
 	private String _name; //
 	@Column(name="price", columnDefinition="Decimal(10,2) default '0.00'")
 	private Double _price; //	
 	@ManyToOne
 	@JoinColumn(name = "cat_id")
-	private Cat _cat; //
+	private Category _category; //
 	
 	public Prod(){}
 	
-	public Prod(Cat category, String name, double price){
+	public Prod(Category category, String name, double price){
 		this.setCat(category);
 		this.setName(name);
 		this.setPrice(price);
@@ -58,11 +58,11 @@ public class Prod implements Serializable{
 	public void setId(int id) {
 		this._id = id;
 	}
-	public Cat getCat() {
-		return _cat;
+	public Category getCat() {
+		return _category;
 	}
-	public void setCat(Cat cat) {
-		this._cat = cat;
+	public void setCat(Category category) {
+		this._category = category;
 	}
 	public String getName() {
 		return _name;
@@ -88,7 +88,7 @@ public class Prod implements Serializable{
 		sb.append("','price':'");
 		sb.append(_price);
 		sb.append("','cat':'");
-		sb.append(_cat.toString());
+		sb.append(_category.toString());
 		sb.append("'}");
 		return sb.toString();
 	}
